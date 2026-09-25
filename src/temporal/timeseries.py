@@ -96,3 +96,34 @@ def get_observation_count(col: ee.ImageCollection) -> ee.Number:
 def get_stack_count(stack: ee.ImageCollection) -> ee.Number:
     """How many monthly composites built"""
     return stack.size()
+# ─────────────────────────────────────────────
+# 5. Elite: AOI-Level Stats (Mentor's Requirement)
+# ─────────────────────────────────────────────
+def get_aoi_time_series(
+    monthly_stack: ee.ImageCollection,
+    aoi: ee.Geometry,
+    scale: int = 10,
+) -> ee.FeatureCollection:
+    """
+    Collapses each monthly composite into 1 mean value over AOI
+    Returns: Date  NDVI  -> ready for Chart.js
+    """
+
+    def _reduce(img: ee.Image) -> ee.Feature:
+        ndvi = img.normalizedDifference(["B8", "B4"]).rename("NDVI")
+        stats = img.addBands(ndvi, overwrite=True).reduceRegion(
+            reducer=ee.Reducer.mean(),
+            geometry=aoi,
+            scale=scale,
+            maxPixels=1e13,
+            bestEffort=True,
+        )
+
+        return ee.Feature(None, {
+            "date": img.get("date"),
+            "NDVI": stats.get("NDVI"),
+            "count": img.get("count"),
+            "system:time_start": img.get("system:time_start"),
+        })
+
+    return monthly_stack.map(_reduce)
