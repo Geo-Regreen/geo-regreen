@@ -4,3 +4,4 @@ sentinelhub
 python-dotenv
 pydantic
 requests-oauthlib
+flask
