@@ -83,8 +83,7 @@ HTML = """<!doctype html>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
 const map = L.map('map',{zoomControl:false}).setView([-26.15,29.2],12);
-L.tileLayer('https://{s}.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap contributors', maxZoom: 19}).addTo(map);
-const zones = [
+L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',{attribution:'© Esri, Maxar', maxZoom: 19}).addTo(map);
 L.polygon([[-26.08,29.1],[-26.07,29.18],[-26.11,29.2],[-26.13,29.14]],{color:'#ff7d76',fillOpacity:.25}).addTo(map).bindPopup('ZONE B · High priority · 0.84'),
 L.polygon([[-26.12,29.05],[-26.10,29.09],[-26.14,29.12],[-26.16,29.07]],{color:'#f3c16a',fillOpacity:.22}).addTo(map).bindPopup('ZONE A · Monitor'),
 L.polygon([[-26.20,29.15],[-26.18,29.22],[-26.22,29.25],[-26.24,29.18]],{color:'#f3c16a',fillOpacity:.18}).addTo(map),
