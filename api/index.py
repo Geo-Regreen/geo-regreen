@@ -41,12 +41,10 @@ HTML = """<!doctype html>
 <span class="kpi">STATUS: <b style="color:var(--amber)">FIELD VALIDATION REQUIRED</b></span>
 </div>
 </header>
-
 <div style="display:flex;justify-content:space-between;gap:16px;align-items:end;margin:18px 0">
 <div><div style="color:var(--mint);font-size:10px;letter-spacing:.15em;font-weight:800">MINE REHABILITATION INTELLIGENCE</div><h1 style="font-size:clamp(28px,3.2vw,40px);line-height:1.05;margin:8px 0;letter-spacing:-.04em">Find the failure before<br>the audit does.</h1><p class="sub" style="max-width:720px">Live screening from public satellite + client site records. Every flag shows source, date, confidence and next field action. No black box.</p></div>
 <div><button class="btn" id="exportBtn">Export CSV · Inspection Pack</button></div>
 </div>
-
 <div class="grid">
 <div class="card">
 <div style="display:flex;justify-content:space-between"><div><h2>Operational Screening Map</h2><div class="sub">Khwezela Colliery · AOI v1.3 · Public data demo</div></div><span class="badge b-amber">18.6 ha FLAGGED FOR REVIEW</span></div>
@@ -65,7 +63,6 @@ HTML = """<!doctype html>
 <div class="metric"><span>Next scheduled check</span><strong>Daily scan</strong><span>Automated · Slack alert</span></div>
 </div>
 </div>
-
 <div class="card">
 <h2>Priority Inspection Queue</h2><div class="sub">Actionable, not analytical. For env manager + rehab contractor.</div>
 <table class="table" id="queueTable">
@@ -114,3 +111,6 @@ let blob=new Blob([csv],{type:'text/csv'});let a=document.createElement('a');a.h
 @app.route('/<path:path>')
 def serve(path):
     return Response(HTML, mimetype='text/html')
+
+# Vercel requires this
+app = app
