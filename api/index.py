@@ -83,7 +83,7 @@ HTML = """<!doctype html>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
 const map = L.map('map',{zoomControl:false}).setView([-26.15,29.2],12);
-L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{attribution:'© OSM'}).addTo(map);
+L.tileLayer('https://{s}.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap contributors', maxZoom: 19}).addTo(map);
 const zones = [
 L.polygon([[-26.08,29.1],[-26.07,29.18],[-26.11,29.2],[-26.13,29.14]],{color:'#ff7d76',fillOpacity:.25}).addTo(map).bindPopup('ZONE B · High priority · 0.84'),
 L.polygon([[-26.12,29.05],[-26.10,29.09],[-26.14,29.12],[-26.16,29.07]],{color:'#f3c16a',fillOpacity:.22}).addTo(map).bindPopup('ZONE A · Monitor'),
