@@ -1,4 +1,8 @@
-<!doctype html>
+from flask import Flask, Response
+
+app = Flask(__name__)
+
+HTML = """<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -98,9 +102,15 @@ zones.forEach(p=>p.setStyle({color:colors[b.dataset.layer]||'#71e0bd'}));
 });
 document.getElementById('timeSlider').oninput=e=>{document.getElementById('dateLabel').textContent='Day '+e.target.value+' · 2026-10-26';};
 document.getElementById('exportBtn').onclick=()=>{
-let csv='zone,signal,confidence,date,source,action\nB,Land change 84%,0.84,2026-10-24,S2 L2A,Drone+soil\nA,Water +22%,0.76,2026-10-22,S2 NDWI,Drainage\nD,NDVI recovery,0.72,2026-10-26,S2 NDVI,Verify';
+let csv='zone,signal,confidence,date,source,action\\nB,Land change 84%,0.84,2026-10-24,S2 L2A,Drone+soil\\nA,Water +22%,0.76,2026-10-22,S2 NDWI,Drainage\\nD,NDVI recovery,0.72,2026-10-26,S2 NDVI,Verify';
 let blob=new Blob([csv],{type:'text/csv'});let a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='georegreen_inspection_pack.csv';a.click();
 };
 </script>
 </body>
 </html>
+"""
+
+@app.route('/', defaults={'path': ''})
+@app.route('/<path:path>')
+def serve(path):
+    return Response(HTML, mimetype='text/html')
